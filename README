@@ -1,0 +1,29 @@
+# G4–Hemin 3-Class Modeling (Weak / Mild / Strong)
+
+## Inputs you need
+- NaCl_model_matrix.csv  (has at least: sample_id, intensity column)
+- G4 with flanking sequence list.xlsx  (first two columns: sample_id, sequence)
+
+## Build the 3-class dataset
+python build_dataset_3class.py \
+  --model_matrix "/path/to/NaCl_model_matrix.csv" \
+  --seq_list "/path/to/G4 with flanking sequence list.xlsx" \
+  --out_csv "/path/to/NaCl_3class_features.csv"
+
+What it does:
+- Excludes controls Ctrl0001 / Ctrl0002
+- Labels: weak (<=80), mild (80–135), strong (>=135)
+- Engineers loop/flank/G-tract features from sequence
+
+## Train 3 models with grouped CV
+python train_models_3class.py \
+  --in_csv "/path/to/NaCl_3class_features.csv" \
+  --out_dir "/path/to/ML_3class_outputs"
+
+Outputs:
+- cv_summary_3class.csv (leaderboard by median Macro-F1)
+- cv_per_fold_3class.csv (fold metrics)
+- confusion_matrix_<Model>.csv
+- best_model_3class_<Model>.joblib (saved pipeline)
+- feature_importances_3class.csv or logistic_coefficients_3class.csv
+- SUMMARY_3class.txt (quick summary + winner)

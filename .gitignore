@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+
+# Environments & tooling
+.venv/
+venv/
+.env
+.env.*
+
+# Data (raw & heavy outputs)
+data/raw/
+data/external/*.xlsx
+data/external/*.xls
+models/
+reports/slides/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
